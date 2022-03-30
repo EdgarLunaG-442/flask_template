@@ -1,9 +1,17 @@
-PROPAGATE_EXCEPTIONS = True
+import os
 
+PROPAGATE_EXCEPTIONS = True
+POSTGRES_USER = os.getenv('POSTGRES_USER', 'postgres')
+POSTGRES_PWD = os.getenv('POSTGRES_PWD', 12345)
+POSTGRES_HOST = os.getenv('POSTGRES_HOST', 'localhost')
+POSTGRES_PORT = os.getenv('POSTGRES_PORT', '5432')
+POSTGRES_DB = os.getenv('POSTGRES_DB', 'postgres')
+LOCAL_DB_FILE = os.getenv('LOCAL_DB_FILE')
 # Database configuration
-SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:12345@localhost:5432/convertdb'
+if LOCAL_DB_FILE:
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///../test.db'
+else:
+    SQLALCHEMY_DATABASE_URI = f'postgresql://{POSTGRES_USER}:{POSTGRES_PWD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SHOW_SQLALCHEMY_LOG_MESSAGES = False
-JWT_SECRET_KEY = 'frase-secreta'
-CELERY_BROKER_URL='redis://localhost:6379/0',
-CELERY_RESULT_BACKEND='redis://localhost:6379/0'
+JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", 'frase')
