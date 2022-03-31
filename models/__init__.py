@@ -1,1 +1,1 @@
-from .user_model import Usuario
+from .blacklist_model import BlackList

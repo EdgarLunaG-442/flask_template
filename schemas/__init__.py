@@ -1,1 +1,1 @@
-from .user_schema import UsuarioSchema
+from .blacklist_schema import BlacklistSchema

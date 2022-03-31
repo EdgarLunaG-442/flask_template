@@ -1,10 +1,10 @@
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
-from models import Usuario
+from models import BlackList
 
 
-class UsuarioSchema(SQLAlchemyAutoSchema):
+class BlacklistSchema(SQLAlchemyAutoSchema):
     class Meta:
-        model = Usuario
+        model = BlackList
         include_relationships = True
         load_instance = True
         include_fk = True

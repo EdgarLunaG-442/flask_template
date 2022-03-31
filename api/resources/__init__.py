@@ -1,1 +1,1 @@
-from .auth_resource import LogInResource, SignInResource, jwt
+from .blacklist_resource import BlackListAdd, BlackListVerify

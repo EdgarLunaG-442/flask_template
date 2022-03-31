@@ -1,4 +1,5 @@
 import os
+from datetime import timedelta
 
 PROPAGATE_EXCEPTIONS = True
 POSTGRES_USER = os.getenv('POSTGRES_USER', 'postgres')
@@ -14,4 +15,3 @@ else:
     SQLALCHEMY_DATABASE_URI = f'postgresql://{POSTGRES_USER}:{POSTGRES_PWD}@{POSTGRES_HOST}:{POSTGRES_PORT}/{POSTGRES_DB}'
 SQLALCHEMY_TRACK_MODIFICATIONS = False
 SHOW_SQLALCHEMY_LOG_MESSAGES = False
-JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", 'frase')

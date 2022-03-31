@@ -1,9 +1,8 @@
 from flask import Flask, jsonify
 from flask_restful import Api
 
-from api.resources import jwt
 from sqlalchemy.exc import IntegrityError
-from common.error_handling import ObjectNotFound, AppErrorBaseClass, NotAllowed, NotReady
+from common.error_handling import ObjectNotFound, AppErrorBaseClass, NotAllowed, NotReady, ModelConflict
 from db import db
 from api.api_resources import api_bp
 from ext import marshmallow, migrate
@@ -19,7 +18,6 @@ def create_app(settings_module):
     db.create_all()
     marshmallow.init_app(app)
     migrate.init_app(app, db)
-    jwt.init_app(app)
 
     # Catch all errors 404
     Api(app, catch_all_404s=True)
@@ -39,7 +37,7 @@ def register_error_handlers(app):
     @app.errorhandler(Exception)
     def handle_exception_error(e):
         db.session.rollback()
-        return jsonify({'msg': 'Internal server error', 'error': str(e)}), 400
+        return jsonify({'msg': 'No disponible', 'error': str(e)}), 400
 
     @app.errorhandler(IntegrityError)
     def handle_integrity_error(e):
@@ -74,3 +72,7 @@ def register_error_handlers(app):
     @app.errorhandler(NotReady)
     def handle_not_ready(e):
         return jsonify({'msg': str(e)}), 400
+
+    @app.errorhandler(ModelConflict)
+    def handle_conflict(e):
+        return jsonify({'msg': str(e)}), 409
