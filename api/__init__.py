@@ -32,6 +32,8 @@ def create_app(settings_module):
     register_error_handlers(application)
     print("-------------Application runs ok------------------")
     return application
+
+
 def register_error_handlers(application):
 
     @application.errorhandler(Exception)
@@ -43,7 +45,6 @@ def register_error_handlers(application):
     def handle_integrity_error(e):
         db.session.rollback()
         return jsonify({'msg': 'El usuario ya existe', 'error': str(e)}), 400
-
 
     @application.errorhandler(405)
     def handle_405_error(e):

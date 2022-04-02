@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "ac167386-d578-4724-90c2-25aaee32d20c",
+		"name": "blacklist",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "verificar email",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBfdXVpZCI6Ijg0ZTUzMmNiLTA3ODgtNDcyOS1hMzc5LTFmNjY3ZjE4YTQ0MyJ9.wTHH_sbnfimd3b-BvJ-AfKWU7YdH9QWSesDcTQDzqgQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{host}}/blacklists/gerzonbautista@gmail.com",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"blacklists",
+						"gerzonbautista@gmail.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "anadir email",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhcHBfdXVpZCI6Ijg0ZTUzMmNiLTA3ODgtNDcyOS1hMzc5LTFmNjY3ZjE4YTQ0MyJ9.wTHH_sbnfimd3b-BvJ-AfKWU7YdH9QWSesDcTQDzqgQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"gerzonbautista@gmail.com\",\n    \"app_uuid\":\"84e532cb-0788-4729-a379-1f667f18a443\",\n    \"blocked_reason\": \"Email fraudulento\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{host}}/blacklists",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"blacklists"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "blacklist-env.eba-rkhxxja7.us-east-1.elasticbeanstalk.com"
+		},
+		{
+			"key": "port",
+			"value": "80"
+		},
+		{
+			"key": "uuid",
+			"value": "84e532cb-0788-4729-a379-1f667f18a443"
+		},
+		{
+			"key": "email",
+			"value": "hatgiihotmail.com"
+		}
+	]
+}

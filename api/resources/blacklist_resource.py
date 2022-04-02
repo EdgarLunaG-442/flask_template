@@ -1,19 +1,18 @@
-import os
 from flask_restful import Resource
 from flask import request
 from models import BlackList
 from schemas import BlacklistSchema
-from db import db
 from marshmallow.exceptions import ValidationError
-from common.error_handling import NotAllowed, ModelConflict
-from helpers import validar_uuid, filter_object
+from common.error_handling import ModelConflict
+from helpers import filter_object, token_required
 
 blacklist_schema = BlacklistSchema()
 
 
 class BlackListAdd(Resource):
+
+    @token_required
     def post(self):
-        validar_uuid()
         blocked_email = BlackList.query.filter(BlackList.email == request.json["email"]).first()
         if blocked_email:
             raise ModelConflict("El email ya hace parte de la lista negra")
@@ -25,14 +24,16 @@ class BlackListAdd(Resource):
 
 
 class BlackListVerify(Resource):
+
+    @token_required
     def get(self, email):
-        validar_uuid()
         try:
             blocked_email = BlackList.query.filter(BlackList.email == email).first()
             if not blocked_email:
                 return {"msg": "El correo NO hace parte de la lista negra", "in_list": False}, 404
             else:
                 return {"msg": "El correo SI hace parte de la lista negra",
-                        "in_list": True, **filter_object(blacklist_schema.dump(blocked_email),["ip","id"])}
+                        "in_list": True, **filter_object(blacklist_schema.dump(blocked_email), ["ip", "id"])}
         except ValidationError as e:
             return {"msg": e.messages[0]}, 401
+
