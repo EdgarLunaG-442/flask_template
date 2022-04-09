@@ -1,1 +1,1 @@
-from .blacklist_resource import BlackListAdd, BlackListVerify
+from .blacklist_resource import BlackListAdd, BlackListVerify, HealthCheck

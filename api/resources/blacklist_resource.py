@@ -33,6 +33,11 @@ class BlackListVerify(Resource):
                 return {"msg": "El correo NO hace parte de la lista negra", "in_list": False}, 404
             else:
                 return {"msg": "El correo SI hace parte de la lista negra",
-                        "in_list": True, **filter_object(blacklist_schema.dump(blocked_email),["ip","id"])}
+                        "in_list": True, **filter_object(blacklist_schema.dump(blocked_email), ["ip", "id"])}
         except ValidationError as e:
             return {"msg": e.messages[0]}, 401
+
+
+class HealthCheck(Resource):
+    def get(self):
+        return "Im alive!!", 200
