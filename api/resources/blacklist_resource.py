@@ -37,3 +37,7 @@ class BlackListVerify(Resource):
         except ValidationError as e:
             return {"msg": e.messages[0]}, 401
 
+
+class HealthCheck(Resource):
+    def get(self):
+        return "Im alive!!", 200
