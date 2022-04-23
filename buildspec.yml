@@ -1,18 +1,6 @@
 version: 0.2
 
 phases:
-  install:
-    commands:
-      - echo Entered install phase
-      - apt-get update -y
-      - add-apt-repository ppa:deadsnakes/ppa
-      - apt install python3.8
-      - echo python installed
-      - python3.8 --version
-      - apt update
-      - apt install python3-pip
-      - echo pip installed
-      - pip3 --version
   pre_build:
     commands:
       - echo Prebuild started
