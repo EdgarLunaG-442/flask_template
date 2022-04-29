@@ -1,0 +1,5 @@
+set -e
+export API_UUID="84e532cb-0788-4729-a379-1f667f18a443"
+export LOCAL_DB_FILE=True
+python -m unittest -v backtest
+rm -rf test.db

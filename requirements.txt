@@ -34,3 +34,5 @@ SQLAlchemy==1.4.34
 uuid==1.30
 Werkzeug==2.1.1
 zipp==3.7.0
+faker
+Flask-Cors

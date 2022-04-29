@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_restful import Api
-
+from flask_cors import CORS
 from sqlalchemy.exc import IntegrityError
 from common.error_handling import ObjectNotFound, AppErrorBaseClass, NotAllowed, NotReady, ModelConflict
 from db import db
@@ -8,7 +8,7 @@ from api.api_resources import api_bp
 from ext import marshmallow, migrate
 
 
-def create_app(settings_module):
+def create_app(settings_module, test_mode: bool = False):
     application = Flask(__name__)
     application.config.from_object(settings_module)
     application.app_context().push()
@@ -16,6 +16,7 @@ def create_app(settings_module):
     # Init extensions
     db.init_app(application)
     db.create_all()
+    CORS(application)
     marshmallow.init_app(application)
     migrate.init_app(application, db)
 
@@ -30,12 +31,14 @@ def create_app(settings_module):
 
     # Register custom error handlers
     register_error_handlers(application)
-    print("-------------Application runs ok------------------")
+    if test_mode:
+        application = application.test_client()
+    else:
+        print("-------------Application runs ok------------------")
     return application
 
 
 def register_error_handlers(application):
-
     @application.errorhandler(Exception)
     def handle_exception_error(e):
         db.session.rollback()

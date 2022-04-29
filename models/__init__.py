@@ -1,1 +1,1 @@
-from .blacklist_model import BlackList
+from .blacklist_model import BlackList, db
