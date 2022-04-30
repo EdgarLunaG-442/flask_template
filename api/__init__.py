@@ -11,6 +11,8 @@ from ext import marshmallow, migrate
 def create_app(settings_module, test_mode: bool = False):
     application = Flask(__name__)
     application.config.from_object(settings_module)
+    if test_mode:
+        application.config["sqlite:///../test.db"] = True
     application.app_context().push()
 
     # Init extensions
