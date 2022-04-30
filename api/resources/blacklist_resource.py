@@ -40,4 +40,4 @@ class BlackListVerify(Resource):
 
 class HealthCheck(Resource):
     def get(self):
-        return "Im alive with containers!!!", 200
+        return "I'm alive through the pipes using containers!!!", 200
