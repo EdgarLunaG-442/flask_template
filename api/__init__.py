@@ -15,6 +15,8 @@ def create_app(settings_module, test_mode: bool = False):
 
     # Init extensions
     db.init_app(application)
+    if test_mode:
+        db.drop_all()
     db.create_all()
     CORS(application)
     marshmallow.init_app(application)
