@@ -1,11 +1,6 @@
-FROM public.ecr.aws/docker/library/alpine:3.14
+FROM public.ecr.aws/docker/library/python:3.9.12-buster
 
-RUN apk add py3-pip \
-    && pip install --upgrade pip
-
-COPY . .
-
-RUN pip install -r requirements.txt
+RUN pip3 install -r requirements.txt
 
 EXPOSE 5000
 
