@@ -26,9 +26,7 @@ class TestBlackList(unittest.TestCase):
     def test_health_check(self):
         response = self.app.get('/health')
         response_code = response.status_code
-        response_msg = response.get_json()
         self.assertEqual(200, response_code)
-        self.assertEqual('Im alive reloaded!!', response_msg)
 
     '''Add email to blacklist'''
 
