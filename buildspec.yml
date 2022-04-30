@@ -3,8 +3,27 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - echo Prebuild started
-      - pip3 install -r requirements.txt
+      - echo STARTING TEST
+      - set -e
+      - export API_UUID="89a07f6d-9336-472b-bfe5-949a5da8dc81"
+      - export LOCAL_DB_FILE=True
+      - python3 -m unittest -v backtest
+      - rm -rf test.db
+      - echo TEST DONE
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 552513699221.dkr.ecr.us-east-1.amazonaws.com
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t blacklist-ed-w4-containers .
+      - docker tag blacklist-ed-w4-containers:latest 552513699221.dkr.ecr.us-east-1.amazonaws.com/blacklist-ed-w4-containers:latest
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 552513699221.dkr.ecr.us-east-1.amazonaws.com/blacklist-ed-w4-containers:latest
+      -
 artifacts:
   files:
     - '**/*'
