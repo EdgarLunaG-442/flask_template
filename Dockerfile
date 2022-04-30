@@ -2,7 +2,7 @@ FROM public.ecr.aws/docker/library/alpine:3.14
 
 COPY . .
 
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
