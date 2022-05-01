@@ -40,7 +40,7 @@ class TestBlackList(unittest.TestCase):
         response = self.app.post(f'/blacklist', headers={'Authorization': f'Bearer {self.tkn}'}, json=payload)
         response_code = response.status_code
         response_json: dict = response.get_json()
-        self.assertEqual(200, response_code)
+        self.assertEqual(201, response_code)
         self.assertEqual(f"El correo {mock_email} fue añadido a la lista negra exitosamente", response_json.get("msg", None))
 
     '''verify if email is inside blacklist'''
