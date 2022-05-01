@@ -20,7 +20,7 @@ class BlackListAdd(Resource):
         payload["ip"] = request.remote_addr
         new_blocked_email = BlackList(**payload)
         new_blocked_email.add()
-        return {"msg": f"El correo {new_blocked_email.email} fue añadido a la lista negra exitosamente"}, 201
+        return {"msg": f"El correo {new_blocked_email.email} fue añadido a la lista negra exitosamente"}, 200
 
 
 class BlackListVerify(Resource):
